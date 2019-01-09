@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    | Home
+{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <hr>
+    <div class="ui three column divided grid">
+        <div class="row">
+
+            {% if keys %}
+
+
+                {% for key in keys %}
+
+                    <div class="column">
+                            <a class="nav-link" href="">
+                                <h3 class="text-center text-uppercase text-dark">{{key.title}}</h3>
+                            </a>
+                        <p class="card-body">{{key.description}}</p>
+                        <p>
+                            <i class="fas fa-user"></i> published by {{key.publisher}}
+                            <i class="fas fa-clock"></i> {{key.published_date | timesince}}
+                        </p>
+                        <hr>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                <div class="column">
+                    <p>No news available</p>
+                </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

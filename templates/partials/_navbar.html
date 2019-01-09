@@ -1,0 +1,76 @@
+<!-- Navbar -->
+
+{% load static %}
+<div class="ui main text container">
+    <h1 class="ui header text-center">// Our Brand //</h1>
+    <p class="text-center">// Our Slogan //</p>
+</div>
+
+
+<div class="ui inverted borderless transparent main menu">
+    <div class="ui container right">
+        <div class="ui item category search">
+            <form action="{% url 'search' %}" method="GET">
+                <div class="ui transparent light icon input">
+                    <input class="prompt" name="keywords" type="search" placeholder="Search" value="{{values.keywords}}">
+                    <i class="fas fa-search icon"></i>
+                </div>
+            </form>
+        </div>
+        <div {% if '/' == request.path %}
+            class="nav-item active mr-3"
+            {% else %}
+            class="nav-item mr-3"
+            {% endif %}>
+            <a class="item" href="{% url 'index' %}">
+                    <i class="fas fa-home"></i>  Home
+            </a>
+        </div>
+        <div {% if 'courses' in request.path %}
+            class="nav-item active mr-3"
+            {% else %}
+            class="nav-item mr-3"
+            {% endif %}>
+            <a class="item" href="{% url 'courses' %}">Courses</a>
+        </div>
+        <div {% if 'others' in request.path %}
+            class="nav-item active mr-3"
+            {% else %}
+            class="nav-item mr-3"
+            {% endif %}>
+            <a class="item" href="#">Others</a>
+        </div>
+        <div class="right menu">
+
+            {% if user.is_authenticated %}
+
+                <div class='item'>
+                    <p>Hi {{user.username}} ! </p>
+                </div>
+                <div class="item">
+                    <a href="javascript:{document.getElementById('logout').submit()}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                    <form action="{% url 'logout' %}" method="POST" id="logout">
+                        {% csrf_token %}
+                        <input type="hidden" name="">
+                    </form>
+                </div>
+
+            {% else %}
+                <div class="item">
+                    <a href="{% url 'register' %}">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
